@@ -325,7 +325,8 @@ const SECTIONS = [
     fields: [
       { id:'construction_material', lv:'Konstrukcijas materiāls', en:'Structural material', type:'select',
         options:['CLT','Koka karkass','SIP'] },
-      { id:'insulation', lv:'Siltinājums', en:'Insulation', type:'text' },
+      { id:'insulation', lv:'Siltinājums', en:'Insulation', type:'select',
+        options:['Kingspan','Kokšķiedra','Akmens vate'] },
       { id:'frame_base', lv:'Rāmja apakša', en:'Frame base / underside', type:'select',
         options:['Cementšķiedra finieris'] },
       { id:'underfloor_heating', lv:'Siltā grīda', en:'Underfloor heating', type:'select',
@@ -665,14 +666,16 @@ function buildForm(){
       row.appendChild(commentWrap);
       row.appendChild(badge);
       body.appendChild(row);
-      renderThumb(f.id);
-      renderPlainThumb(f.id);
     });
 
     secEl.appendChild(head);
     secEl.appendChild(body);
     sectionsEl.appendChild(secEl);
   });
+
+  // Only now (after every row is actually attached to the live document)
+  // can getElementById find the thumb/visual-picker slots, so render them here.
+  allFields().forEach(f=>{ renderThumb(f.id); renderPlainThumb(f.id); });
 
   updateProgress();
 }

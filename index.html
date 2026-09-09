@@ -665,14 +665,16 @@ function buildForm(){
       row.appendChild(commentWrap);
       row.appendChild(badge);
       body.appendChild(row);
-      renderThumb(f.id);
-      renderPlainThumb(f.id);
     });
 
     secEl.appendChild(head);
     secEl.appendChild(body);
     sectionsEl.appendChild(secEl);
   });
+
+  // Only now (after every row is actually attached to the live document)
+  // can getElementById find the thumb/visual-picker slots, so render them here.
+  allFields().forEach(f=>{ renderThumb(f.id); renderPlainThumb(f.id); });
 
   updateProgress();
 }
